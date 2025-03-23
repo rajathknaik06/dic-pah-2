@@ -1,0 +1,37 @@
+""" Max is developing a script to analyze text data within a file named "input.txt". Write a program to find the maximum occurrence of a word in the given file ignoring case and punctuation such as commas and periods. 
+
+Input format :
+The input consists of a string, representing the input text.
+
+Output format :
+The output displays "X: Y" where X is the word that is most present in lowercase format that file and Y is the count of that word.
+
+"""
+
+user_input = input()
+with open("input.txt", "w") as file:
+    file.write(user_input)
+    
+with open("input.txt", "r") as file:
+    wordcount = {}
+    maxCount = 0
+    mostCommonWord = ""
+
+    # Read each line in the file
+    for line in file:
+        # Split the line into words and remove punctuation
+        words = line.lower().replace(",", "").replace(".", "").split()
+
+        # Update word count
+        for word in words:
+            if word in wordcount:
+                wordcount[word] += 1
+            else:
+                wordcount[word] = 1
+
+            # Update most common word if necessary
+            if wordcount[word] > maxCount:
+                maxCount = wordcount[word]
+                mostCommonWord = word
+    
+print(f"{mostCommonWord}: {maxCount}")
